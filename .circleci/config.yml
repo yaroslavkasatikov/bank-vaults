@@ -31,7 +31,12 @@ jobs:
 
       - run:
           name: Download license information for dependencies
-          command: make license-cache
+          command: |
+            unset GITHUB_TOKEN
+            git config --list
+            git config --global --list || true
+            git config --global --remove-section url."ssh://git@github.com"
+            make license-cache
 
       - save_cache:
           name: Save license cache
@@ -41,7 +46,9 @@ jobs:
 
       - run:
           name: Check dependency licenses
-          command: make license-check
+          command: |
+            unset GITHUB_TOKEN
+            make license-check
 
       - run:
           name: Run verification
