@@ -39,7 +39,7 @@ func configMapNeedsMutation(configMap *corev1.ConfigMap) bool {
 	return false
 }
 
-func mutateConfigMap(configMap *corev1.ConfigMap, vaultConfig internal.VaultConfig, _ string) error {
+func mutateConfigMap(configMap *corev1.ConfigMap, vaultConfig internal.VaultConfig) error {
 	// do an early exit and don't construct the Vault client if not needed
 	if !configMapNeedsMutation(configMap) {
 		return nil
